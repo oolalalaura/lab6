@@ -25,8 +25,16 @@ function addProjectDetails(e) {
 	var projectID = $(this).closest('.project').attr('id');
 	// get rid of 'project' from the front of the id 'project3'
 	var idNumber = projectID.substr('project'.length);
+	var anchor = $(this);
+	var detail = anchor.next();
 
 	console.log("User clicked on project " + idNumber);
+	$.get('/project/' + idNumber, function(result){
+
+		detail.html(result.summary);
+		detail.html('<img src="' + result['image'] + '" class="img">' + '<h3>' + result['title'] + '</h3>' + '<h4><small>' + result['date'] + '</small></h4>' + '<p>' + result['summary'] + '</p>');
+	});
+	console.log('/project/' + idNumber);
 }
 
 /*
@@ -35,4 +43,5 @@ function addProjectDetails(e) {
  */
 function randomizeColors(e) {
 	console.log("User clicked on color button");
+	$.get('/palette');
 }
